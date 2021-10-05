@@ -57,7 +57,7 @@ We can break the implementation of CRNN network into following steps:
 * matplotlib
 * sklearn
 ## Dataset Used ##
-* IAM dataset download from [here](https://fki.tic.heia-fr.ch/databases/iam-handwriting-database)
+* IAM dataset download from [here](https://fki.tic.heia-fr.ch/databases/iam-handwriting-database).
 # Prediction output on IAM Test Data
 ![Screenshot from 2021-10-06 02-13-54](https://user-images.githubusercontent.com/67474853/136099914-e5458ced-1915-49a8-8716-d649bcfe2dcf.png)
 # Prediction output on Self Test Data
@@ -70,5 +70,5 @@ We can break the implementation of CRNN network into following steps:
   seperate paragraph into lines.    
 * Better Image preprocessing such as: reduce backgoround noise to handle real time image more accurately.
 * Better Decoding approach to improve accuracy. Some of the CTC Decoder found [here](https://github.com/githubharald/CTCDecoder).
-* Using MxNet deep learning framework and MDLSTM to recognize whole paragraph at once Scan, Attend and Read: End-to-End Handwritten Paragraph Recognition.
+* Using MxNet deep learning framework and [MDLSTM](https://arxiv.org/abs/1604.03286) to recognize whole paragraph at once Scan, Attend and Read: End-to-End  Handwritten Paragraph Recognition.
 * Modifying and extending the CRNN+LSTM+CTC architecture for Hindi Handwriting text segmentation and recognition.
