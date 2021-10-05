@@ -30,7 +30,7 @@ We can break the implementation of CRNN network into following steps:
 * The image is then normalized to range [0, 1]
 
 ### Label Encoding for CTC Loss ###
-* Learn more about CTC loss and why its amazing for text recognition from here.
+* Learn more about CTC loss and why its amazing for text recognition from [here](https://towardsdatascience.com/handwriting-to-text-conversion-using-time-distributed-cnn-and-lstm-with-ctc-loss-function-a784dccc8ec3).
 * The labels have to be converted to numbers which represent each character in the training set. The 'alphabets' consist of A-Z and three special characters (- ' and space).
 
 ### Model Building ###
@@ -57,7 +57,7 @@ We can break the implementation of CRNN network into following steps:
 * matplotlib
 * sklearn
 ## Dataset Used ##
-* IAM dataset download from here
+* IAM dataset download from [here](https://fki.tic.heia-fr.ch/databases/iam-handwriting-database)
 # Prediction output on IAM Test Data
 ![Screenshot from 2021-10-06 02-13-54](https://user-images.githubusercontent.com/67474853/136099914-e5458ced-1915-49a8-8716-d649bcfe2dcf.png)
 # Prediction output on Self Test Data
@@ -69,6 +69,6 @@ We can break the implementation of CRNN network into following steps:
 * Line segementation can be added for full paragraph text recognition. For line segmentation you can use A* path planning algorithm or CNN model or opencv to  
   seperate paragraph into lines.    
 * Better Image preprocessing such as: reduce backgoround noise to handle real time image more accurately.
-* Better Decoding approach to improve accuracy. Some of the CTC Decoder found here.
+* Better Decoding approach to improve accuracy. Some of the CTC Decoder found [here](https://github.com/githubharald/CTCDecoder).
 * Using MxNet deep learning framework and MDLSTM to recognize whole paragraph at once Scan, Attend and Read: End-to-End Handwritten Paragraph Recognition.
 * Modifying and extending the CRNN+LSTM+CTC architecture for Hindi Handwriting text segmentation and recognition.
