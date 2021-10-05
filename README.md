@@ -13,9 +13,9 @@ Here is the CNN-biLSTM architecture model(Detailed Project Workflow).
 The input lines are sent into the CNN to extract features from similar patterns. These image features are then sent to a sequential learner which are the bidirectional LSTMs which are then sent to the output string that predict the character based on the alphabet with the highest predicted value given by the model.
 
 Project consists of Three steps:
-* Multi-scale feature Extraction --> Convolutional Neural Network 7 Layers
-* Sequence Labeling (BLSTM-CTC) --> Recurrent Neural Network (2 layers of LSTM) with CTC
-* Transcription --> Decoding the output of the RNN (CTC decode)
+* Multi-scale feature Extraction --> Convolutional Neural Network 7 Layers.
+* Sequence Labeling (BLSTM-CTC) --> Recurrent Neural Network (2 layers of LSTM) with CTC.
+* Transcription --> Decoding the output of the RNN (CTC decode).
 
 We can break the implementation of CRNN network into following steps:
 
@@ -25,8 +25,8 @@ We can break the implementation of CRNN network into following steps:
 * Place the downloaded files inside data directory.
 
 ### Data Preprocessing and preparing the images for training ###
-* The images are loaded as grayscale and reshaped to width 256 and height 64.
-* The width and height are cropped if they are greater than 256 and 64 respectively. If they are smaller, then the image is padded with white pixels. Finally the   image is rotated clockwise to bring the image shape to (x, y).
+* The images are loaded as grayscale and reshaped to width 128 and height 32.
+* The width and height are cropped if they are greater than 128 and 32 respectively. If they are smaller, then the image is padded with white pixels. Finally the   image is rotated clockwise to bring the image shape to (x, y).
 * The image is then normalized to range [0, 1]
 
 ### Label Encoding for CTC Loss ###
@@ -35,7 +35,7 @@ We can break the implementation of CRNN network into following steps:
 
 ### Model Building ###
 * Input shape for our architecture having an input image of height 32 and width 128.
-* Here we used seven convolution layers of which 6 are having kernel size (3,3) and the last one is of size (2.2). And the number of filters is increased from 64   to 512 layer by layer.
+* Here we used seven convolution layers of which 6 are having kernel size (3,3) and the last one is of size (2.2) and the number of filters is increased from 64    to 512 layer by layer.
 * Two max-pooling layers are added with size (2,2) and then two max-pooling layers of size (2,1) are added to extract features with a larger width to predict long   texts.
 * Also, we used batch normalization layers after fifth and sixth convolution layers which accelerates the training process.
 * Then we used a lambda function to squeeze the output from conv layer and make it compatible with LSTM layer.
