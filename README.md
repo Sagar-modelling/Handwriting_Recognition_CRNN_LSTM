@@ -56,24 +56,18 @@ We can break the implementation of CRNN network into following steps:
 * Pandas
 * matplotlib
 * sklearn
-
 ## Dataset Used ##
 * IAM dataset download from here
-
 # Prediction output on IAM Test Data
-
-
+![Screenshot from 2021-10-06 02-13-54](https://user-images.githubusercontent.com/67474853/136099914-e5458ced-1915-49a8-8716-d649bcfe2dcf.png)
 # Prediction output on Self Test Data
+![Screenshot from 2021-10-06 02-28-21](https://user-images.githubusercontent.com/67474853/136101892-baf13b9d-8d19-413d-85fe-6200bd9ada0c.png)
 
 
+![Screenshot from 2021-10-06 02-28-41](https://user-images.githubusercontent.com/67474853/136101933-b1ce90a0-f7b2-46d6-9945-759677061079.png)
 # Further Improvement
 * Using MDLSTM to recognize whole paragraph at once Scan, Attend and Read: End-to-End Handwritten Paragraph Recognition with MDLSTM Attention
 * Line segementation can be added for full paragraph text recognition. For line segmentation you can use A* path planning algorithm or CNN model to seperate 
   paragraph into lines.    
 * Better Image preprocessing such as: reduce backgoround noise to handle real time image more accurately.
   Better Decoding approach to improve accuracy. Some of the CTC Decoder found here
-
-
-
-
-
