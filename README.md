@@ -70,5 +70,5 @@ We can break the implementation of CRNN network into following steps:
   seperate paragraph into lines.    
 * Better Image preprocessing such as: reduce backgoround noise to handle real time image more accurately.
 * Better Decoding approach to improve accuracy. Some of the CTC Decoder found here.
-* Using MxNet framework to recognize whole paragraph at once Scan, Attend and Read: End-to-End Handwritten Paragraph Recognition.
+* Using MxNet deep learning framework and MDLSTM to recognize whole paragraph at once Scan, Attend and Read: End-to-End Handwritten Paragraph Recognition.
 * Modifying and extending the CRNN+LSTM+CTC architecture for Hindi Handwriting text segmentation and recognition.
