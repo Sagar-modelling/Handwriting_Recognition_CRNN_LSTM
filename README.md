@@ -196,7 +196,7 @@ jaro : 0.9361624272311879
 
 ![Screenshot from 2021-10-06 02-28-41](https://user-images.githubusercontent.com/67474853/136101933-b1ce90a0-f7b2-46d6-9945-759677061079.png)
 # Further Improvement
-* Line segementation can be added for full paragraph text recognition. For line segmentation you can use A* path planning algorithm or CNN model or opencv to  
+* Line segementation can be added for full paragraph text recognition.For line segmentation you can use A* path planning algorithm or CNN model or opencv to  
   seperate paragraph into lines.    
 * Better Image preprocessing such as: reduce backgoround noise to handle real time image more accurately.
 * Better Decoding approach to improve accuracy. Some of the CTC Decoder found [here](https://github.com/githubharald/CTCDecoder).
