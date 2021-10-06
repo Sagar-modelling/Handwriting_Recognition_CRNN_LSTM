@@ -40,7 +40,51 @@ We can break the implementation of CRNN network into following steps:
 * Also, we used batch normalization layers after fifth and sixth convolution layers which accelerates the training process.
 * Then we used a lambda function to squeeze the output from conv layer and make it compatible with LSTM layer.
 * Then used two Bidirectional LSTM layers each of which has 128 units. This RNN layer gives the output of size (batch_size, 31, 79). Where 79 is the total number   of output classes including blank character.
-![Screenshot from 2021-10-06 01-51-58](https://user-images.githubusercontent.com/67474853/136097194-054a2f14-58fd-4bd8-ab62-b1c1081aeb84.png)
+```
+Model: "model"
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+input_1 (InputLayer)         [(None, 32, 128, 1)]      0         
+_________________________________________________________________
+conv2d (Conv2D)              (None, 32, 128, 64)       640       
+_________________________________________________________________
+max_pooling2d (MaxPooling2D) (None, 16, 64, 64)        0         
+_________________________________________________________________
+conv2d_1 (Conv2D)            (None, 16, 64, 128)       73856     
+_________________________________________________________________
+max_pooling2d_1 (MaxPooling2 (None, 8, 32, 128)        0         
+_________________________________________________________________
+conv2d_2 (Conv2D)            (None, 8, 32, 256)        295168    
+_________________________________________________________________
+conv2d_3 (Conv2D)            (None, 8, 32, 256)        590080    
+_________________________________________________________________
+max_pooling2d_2 (MaxPooling2 (None, 4, 32, 256)        0         
+_________________________________________________________________
+conv2d_4 (Conv2D)            (None, 4, 32, 512)        1180160   
+_________________________________________________________________
+batch_normalization (BatchNo (None, 4, 32, 512)        2048      
+_________________________________________________________________
+conv2d_5 (Conv2D)            (None, 4, 32, 512)        2359808   
+_________________________________________________________________
+batch_normalization_1 (Batch (None, 4, 32, 512)        2048      
+_________________________________________________________________
+max_pooling2d_3 (MaxPooling2 (None, 2, 32, 512)        0         
+_________________________________________________________________
+conv2d_6 (Conv2D)            (None, 1, 31, 512)        1049088   
+_________________________________________________________________
+lambda (Lambda)              (None, 31, 512)           0         
+_________________________________________________________________
+bidirectional (Bidirectional (None, 31, 512)           1574912   
+_________________________________________________________________
+bidirectional_1 (Bidirection (None, 31, 512)           1574912   
+_________________________________________________________________
+dense (Dense)                (None, 31, 79)            40527     
+=================================================================
+Total params: 8,743,247
+Trainable params: 8,741,199
+Non-trainable params: 2,048
+```
 ### Defining Loss Function ###
 ```
 the_labels = Input(name='the_labels', shape=[max_label_len], dtype='float32')
@@ -56,14 +100,67 @@ loss_out = Lambda(ctc_lambda_func, output_shape=(1,), name='ctc')([outputs, the_
 
 #model to be used at training time
 model = Model(inputs=[inputs, the_labels, input_length, label_length], outputs=loss_out)
-}
 ```
 ### Training Model ###
-![Screenshot from 2021-10-06 02-03-07](https://user-images.githubusercontent.com/67474853/136098912-b66196de-6d63-4cc4-9f62-92de64f63fd9.png)
+```
+batch_size = 5
+epochs = 25
+e = str(epochs)
+optimizer_name = 'sgd'
+
+model.compile(loss={'ctc': lambda y_true, y_pred: y_pred}, optimizer = optimizer_name, metrics=['accuracy'])
+
+filepath="{}o-{}r-{}e-{}t-{}v.hdf5".format(optimizer_name,
+                                          str(RECORDS_COUNT),
+                                          str(epochs),
+                                          str(train_images.shape[0]),
+                                          str(valid_images.shape[0]))
+
+checkpoint = ModelCheckpoint(filepath=filepath, monitor='val_accuracy', verbose=1, save_best_only=True, mode='auto')
+callbacks_list = [checkpoint]
+
+history = model.fit(x=[train_images, train_padded_label, train_input_length, train_label_length],
+                    y=np.zeros(len(train_images)),
+                    batch_size=batch_size, 
+                    epochs=epochs, 
+                    validation_data=([valid_images, valid_padded_label, valid_input_length, valid_label_length], [np.zeros(len(valid_images))]),
+                    verbose=1,
+                    callbacks=callbacks_list)
+```
 ### Decoding Outputs from Prediction ###
 *Performance Check:(Levenshtein Distance)
  For computing the performance, using the Jaro-Winkler algorithm to detect similarity between the captured text and the actual text.
-![Screenshot from 2021-10-06 01-59-10](https://user-images.githubusercontent.com/67474853/136098042-dfd93d3d-44c4-45dd-af96-26b77ddd4bf7.png)
+```
+filepath='./sgdo-30000r-25e-18074t-2007v.hdf5'
+# load the saved best model weights
+act_model.load_weights(filepath)
+
+# predict outputs on validation images
+prediction = act_model.predict(valid_images)
+ 
+# use CTC decoder
+decoded = K.ctc_decode(prediction, 
+                       input_length=np.ones(prediction.shape[0]) * prediction.shape[1],
+                       greedy=True)[0][0]
+out = K.get_value(decoded)
+
+import Levenshtein as lv
+
+total_jaro = 0
+
+# see the results
+for i, x in enumerate(out):
+    letters=''
+    for p in x:
+        if int(p) != -1:
+            letters+=char_list[int(p)]
+    total_jaro+=lv.jaro(letters, valid_original_text[i])
+  
+print('jaro :', total_jaro/len(out))
+```
+```output
+jaro : 0.9361624272311879
+```
 # Requirements(Dependencies)
 * Tensorflow 1.8.0
 * Numpy
