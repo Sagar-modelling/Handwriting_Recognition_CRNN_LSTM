@@ -42,7 +42,22 @@ We can break the implementation of CRNN network into following steps:
 * Then used two Bidirectional LSTM layers each of which has 128 units. This RNN layer gives the output of size (batch_size, 31, 79). Where 79 is the total number   of output classes including blank character.
 ![Screenshot from 2021-10-06 01-51-58](https://user-images.githubusercontent.com/67474853/136097194-054a2f14-58fd-4bd8-ab62-b1c1081aeb84.png)
 ### Defining Loss Function ###
-![Screenshot from 2021-10-06 02-10-26](https://user-images.githubusercontent.com/67474853/136099541-4c26af2c-3dea-4afc-a55d-dd807be11930.png)
+```
+the_labels = Input(name='the_labels', shape=[max_label_len], dtype='float32')
+input_length = Input(name='input_length', shape=[1], dtype='int64')
+label_length = Input(name='label_length', shape=[1], dtype='int64')
+
+def ctc_lambda_func(args):
+    y_pred, labels, input_length, label_length = args
+    
+    return K.ctc_batch_cost(labels, y_pred, input_length, label_length)
+
+loss_out = Lambda(ctc_lambda_func, output_shape=(1,), name='ctc')([outputs, the_labels, input_length, label_length])
+
+#model to be used at training time
+model = Model(inputs=[inputs, the_labels, input_length, label_length], outputs=loss_out)
+}
+```
 ### Training Model ###
 ![Screenshot from 2021-10-06 02-03-07](https://user-images.githubusercontent.com/67474853/136098912-b66196de-6d63-4cc4-9f62-92de64f63fd9.png)
 ### Decoding Outputs from Prediction ###
