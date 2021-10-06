@@ -16,7 +16,7 @@ Optical Character Recognition remains a challenging problem when text occurs in 
 * digitizing invoices
 * digitizing menus
 * digitizing ID cards
-* 
+
 In this notebook, we'll go through the steps to train a CRNN (CNN+RNN) model for handwriting recognition. The model will be trained using the CTC(Connectionist Temporal Classification) loss function.
 # Why Deep Learning?
 ![WhyDeepLearning](https://user-images.githubusercontent.com/67474853/136068397-89e3aedf-09b0-4d5b-b2ee-91bc00881377.png)
