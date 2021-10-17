@@ -192,9 +192,13 @@ jaro : 0.9361624272311879
 ![Screenshot from 2021-10-06 02-13-54](https://user-images.githubusercontent.com/67474853/136099914-e5458ced-1915-49a8-8716-d649bcfe2dcf.png)
 # Prediction output on Self Test Data
 ![Screenshot from 2021-10-06 02-28-21](https://user-images.githubusercontent.com/67474853/136101892-baf13b9d-8d19-413d-85fe-6200bd9ada0c.png)
-
-
 ![Screenshot from 2021-10-06 02-28-41](https://user-images.githubusercontent.com/67474853/136101933-b1ce90a0-f7b2-46d6-9945-759677061079.png)
+# Streamlit Web App Deployment
+![Screencast from 16-10-21 05_46_00 PM IST](https://user-images.githubusercontent.com/67474853/137628476-002975a3-dcf8-4195-ab45-ced80ddae191.gif)
+![Screencast from 16-10-21 05_46_49 PM IST](https://user-images.githubusercontent.com/67474853/137628258-5b07765f-1fb1-4de1-8637-97ab9e037eed.gif)
+![Screencast from 16-10-21 05_47_27 PM IST](https://user-images.githubusercontent.com/67474853/137628266-71da8d89-b5c9-4c52-893f-1849c73ef303.gif)
+![Screencast from 16-10-21 05_50_35 PM IST](https://user-images.githubusercontent.com/67474853/137628305-c71bcf39-4f36-4d6f-8e42-297bf5ebb305.gif)
+
 # Further Improvement
 * Line segementation can be added for full paragraph text recognition.For line segmentation you can use A*path planning algorithm or CNN model or opencv to  seperate paragraph into lines.    
 * Better Image preprocessing such as: reduce backgoround noise to handle real time image more accurately.
